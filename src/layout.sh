@@ -156,7 +156,24 @@ start_listener() {
 
         [[ "$source" != "$dest" ]] && __recalculate_layout;
       else
-        __recalculate_layout;
+        desk_file="/tmp/bsp-layout_desktop.txt"
+
+        if [ ! -f "$desk_file" ]; then
+          # create file
+          echo 2 > "$desk_file"
+        fi
+
+        if [[ "$event" == "desktop_focus" ]]; then
+          if [ "$(< "$desk_file")" == "1" ]; then
+            echo 0 > "$desk_file"
+            __recalculate_layout;
+          fi
+        else
+          if [[ "$(< "$desk_file")" == "0" || "$event" != "desktop_focus" ]]; then
+            echo 1 > "$desk_file"
+            __recalculate_layout;
+          fi
+        fi
       fi;
     fi;
   done &
