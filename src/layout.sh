@@ -45,11 +45,20 @@ run_layout() {
 }
 
 get_layout() {
-  # Set desktop to currently focused desktop if option is not specified
-  local desktop="${1:-`get_focused_desktop`}";
+  local desktops;
+  if [ "$1" == "--all" ] || [ "$1" == "-a" ]; then
+    # Check all desktops when the flag is raised
+    desktops=($(bspc query -D --names))
+  else
+    # Set desktop to currently focused desktop if option is not specified
+    desktops=("${1:-`get_focused_desktop`}");
+  fi
 
-  local layout=$(get_desktop_options "$desktop" | valueof layout);
-  echo "${layout:-"-"}";
+  for desktop in "${desktops[@]}";
+  do
+      local layout=$(get_desktop_options "$desktop" | valueof layout);
+      echo "desktop $desktop: ${layout:-"-"}";
+  done
 }
 
 list_layouts() {
