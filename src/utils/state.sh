@@ -1,3 +1,5 @@
+# shellcheck disable=SC2148
+
 DESKTOP_STATE="/tmp/bsp-layout.state/desktops";
 
 # (Data ->) :: Key -> Value -> Data

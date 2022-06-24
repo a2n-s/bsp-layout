@@ -1,3 +1,5 @@
+# shellcheck disable=SC2148
+
 source "$ROOT/utils/common.sh";
 
 # amend the split type so we are arranged correctly

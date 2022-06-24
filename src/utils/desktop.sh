@@ -1,3 +1,5 @@
+# shellcheck disable=SC2148
+
 source "$ROOT/utils/config.sh";
 names="--names"
 [[ $USE_NAMES -eq 0 ]] && names="";

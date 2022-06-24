@@ -1,3 +1,5 @@
+# shellcheck disable=SC2148
+
 XDG_CONF=${XDG_CONFIG_DIR:-"$HOME/.config"};
 CONFIG_DIR="$XDG_CONF/bsp-layout";
 
