@@ -19,14 +19,23 @@ kill_layout() {
 }
 
 remove_listener() {
-  desktop=$1;
-  [[ -z "$desktop" ]] && desktop=$(get_focused_desktop);
+  local desktops;
+  if [ "$1" == "--all" ] || [ "$1" == "-a" ]; then
+    # Check all desktops when the flag is raised
+    desktops=($(bspc query -D --names))
+  else
+    # Set desktop to currently focused desktop if option is not specified
+    desktops=("${1:-`get_focused_desktop`}");
+  fi
 
-  kill_layout "$desktop";
+  for desktop in "${desktops[@]}";
+  do
+      kill_layout "$desktop";
 
-  # Reset process id and layout
-  set_desktop_option $desktop 'layout' "";
-  set_desktop_option $desktop 'pid'    "";
+      # Reset process id and layout
+      set_desktop_option $desktop 'layout' "";
+      set_desktop_option $desktop 'pid'    "";
+  done
 }
 
 get_layout_file() {
