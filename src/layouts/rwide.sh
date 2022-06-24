@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2155
 
 source "$ROOT/utils/common.sh";
 source "$ROOT/utils/layout.sh";

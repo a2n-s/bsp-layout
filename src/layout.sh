@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2155
 
 export VERSION="{{VERSION}}";
 export ROOT="{{SOURCE_PATH}}";
