@@ -1,3 +1,4 @@
+# shellcheck disable=SC1091
 # shellcheck disable=SC2148
 
 source "$ROOT/utils/config.sh";

@@ -1,3 +1,4 @@
+# shellcheck disable=SC1091
 # shellcheck disable=SC2148
 
 XDG_CONF=${XDG_CONFIG_DIR:-"$HOME/.config"};
