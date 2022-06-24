@@ -11,7 +11,7 @@ execute_layout() {
   local target='first';
 
   for node in $(bspc query -N -n .local.window | sort); do
-    bspc node $node -n "$(bspc query -N -n @/${target})";
+    bspc node "$node" -n "$(bspc query -N -n @/${target})";
     [[ "$target" == 'first' ]] && target='second' || target='first';
   done;
 

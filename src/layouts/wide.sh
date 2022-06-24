@@ -21,7 +21,7 @@ execute_layout() {
   local nodes=$(bspc query -N '@/1' -n .descendant_of.window.$node_filter);
   local win_count=$(echo "$nodes" | wc -l);
 
-  if [ $win_count -ne 1 ]; then
+  if [ "$win_count" -ne 1 ]; then
     local new_node=$(bspc query -N '@/1' -n last.descendant_of.window.$node_filter | head -n 1);
 
     if [ -z "$new_node" ]; then
@@ -31,7 +31,7 @@ execute_layout() {
     local root=$(echo "$nodes" | head -n 1);
 
     # move everything into 2 that is not our new_node
-    for wid in $(bspc query -N '@/1' -n .descendant_of.window.$node_filter | grep -v $root); do
+    for wid in $(bspc query -N '@/1' -n .descendant_of.window.$node_filter | grep -v "$root"); do
       bspc node "$wid" -n '@/2';
     done
 
@@ -42,8 +42,8 @@ execute_layout() {
   rotate '@/2' vertical 90;
 
   local stack_node=$(bspc query -N '@/2' -n);
-  for parent in $(bspc query -N '@/2' -n .descendant_of.!window.$node_filter | grep -v $stack_node); do
-    rotate $parent vertical 90;
+  for parent in $(bspc query -N '@/2' -n .descendant_of.!window.$node_filter | grep -v "$stack_node"); do
+    rotate "$parent" vertical 90;
   done
 
   auto_balance '@/2';

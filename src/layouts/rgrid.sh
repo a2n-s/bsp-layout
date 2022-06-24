@@ -8,7 +8,7 @@ setup_layout() {
 }
 
 execute_layout() {
-  bash "$ROOT/layouts/grid.sh" run $*;
+  bash "$ROOT/layouts/grid.sh" run "$*";
 }
 
 cmd=$1; shift;
