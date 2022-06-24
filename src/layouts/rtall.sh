@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC1091
+# shellcheck disable=SC2153
 # shellcheck disable=SC2155
 
 source "$ROOT/utils/common.sh";
