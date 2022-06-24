@@ -18,24 +18,32 @@ kill_layout() {
   kill $old_pid 2> /dev/null || true;
 }
 
-remove_listener() {
+_apply_on_desktops() {
+  arg="$1"
+  function="$2"
+
   local desktops;
-  if [ "$1" == "--all" ] || [ "$1" == "-a" ]; then
+  if [ "$arg" == "--all" ] || [ "$arg" == "-a" ]; then
     # Check all desktops when the flag is raised
     desktops=($(bspc query -D --names))
   else
     # Set desktop to currently focused desktop if option is not specified
-    desktops=("${1:-`get_focused_desktop`}");
+    desktops=("${arg:-`get_focused_desktop`}");
   fi
 
   for desktop in "${desktops[@]}";
   do
-      kill_layout "$desktop";
-
-      # Reset process id and layout
-      set_desktop_option $desktop 'layout' "";
-      set_desktop_option $desktop 'pid'    "";
+    "$function" "$desktop"
   done
+}
+
+remove_listener() {
+  desktop="$1"
+  kill_layout "$desktop";
+
+  # Reset process id and layout
+  set_desktop_option $desktop 'layout' "";
+  set_desktop_option $desktop 'pid'    "";
 }
 
 get_layout_file() {
@@ -54,20 +62,9 @@ run_layout() {
 }
 
 get_layout() {
-  local desktops;
-  if [ "$1" == "--all" ] || [ "$1" == "-a" ]; then
-    # Check all desktops when the flag is raised
-    desktops=($(bspc query -D --names))
-  else
-    # Set desktop to currently focused desktop if option is not specified
-    desktops=("${1:-`get_focused_desktop`}");
-  fi
-
-  for desktop in "${desktops[@]}";
-  do
-      local layout=$(get_desktop_options "$desktop" | valueof layout);
-      echo "desktop $desktop: ${layout:-"-"}";
-  done
+  desktop="$1"
+  local layout=$(get_desktop_options "$desktop" | valueof layout);
+  echo "desktop $desktop: ${layout:-"-"}";
 }
 
 list_layouts() {
@@ -229,8 +226,8 @@ case "$action" in
   set)               start_listener "$@" ;;
   previous)          previous_layout "$@" ;;
   next)              next_layout "$@" ;;
-  get)               get_layout "$@" ;;
-  remove)            remove_listener "$1" ;;
+  get)               _apply_on_desktops "$1" get_layout ;;
+  remove)            _apply_on_desktops "$1" remove_listener ;;
   layouts)           list_layouts ;;
   -h|--help|help)    man bsp-layout ;;
   -v|version)        echo "$VERSION" ;;
