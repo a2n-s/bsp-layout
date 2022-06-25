@@ -4,13 +4,13 @@ source "$ROOT/utils/common.sh";
 rotate() {
   node=$1;
   want=$2;
-  have=$(jget splitType "$(bspc query -T -n "$node")");
+  have=$(jget splitType "$(bspc query --tree --node "$node")");
   have=${have:1:${#have}-2};
   angle=$3;
 
   if [[ "$have" != "$want" ]]; then
-    bspc node "$node" -R "$angle";
+    bspc node "$node" --rotate "$angle";
   fi
 }
 
-auto_balance() { bspc node "$1" -B; }
+auto_balance() { bspc node "$1" --balance; }

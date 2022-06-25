@@ -126,14 +126,14 @@ start_listener() {
   # Set selected desktop to currently focused desktop if option is not specified
   [[ -z "$selected_desktop" ]] && selected_desktop=$(get_focused_desktop);
 
-  bspc desktop "$selected_desktop" -l tiled;
+  bspc desktop "$selected_desktop" --layout tiled;
 
   # If it is a bsp default layout, set that
   if (echo -e "$BSP_DEFAULT_LAYOUTS" | grep "^$layout$"); then
     remove_listener "$selected_desktop";
     set_desktop_option $selected_desktop 'layout' "$layout";
-    bspc desktop "$selected_desktop" -l "$layout";
-    bspc node @/ -E;
+    bspc desktop "$selected_desktop" --layout "$layout";
+    bspc node @/ --equalize;
     exit 0;
   fi
 

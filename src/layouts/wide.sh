@@ -18,40 +18,40 @@ execute_layout() {
   done;
 
   # ensure the count of the master child is 1, or make it so
-  local nodes=$(bspc query -N '@/1' -n .descendant_of.window.$node_filter);
+  local nodes=$(bspc query --nodes '@/1' --node .descendant_of.window.$node_filter);
   local win_count=$(echo "$nodes" | wc -l);
 
   if [ $win_count -ne 1 ]; then
-    local new_node=$(bspc query -N '@/1' -n last.descendant_of.window.$node_filter | head -n 1);
+    local new_node=$(bspc query --nodes '@/1' --node last.descendant_of.window.$node_filter | head -n 1);
 
     if [ -z "$new_node" ]; then
-      new_node=$(bspc query -N '@/2' -n last.descendant_of.window.$node_filter | head -n 1);
+      new_node=$(bspc query --nodes '@/2' --node last.descendant_of.window.$node_filter | head -n 1);
     fi
 
     local root=$(echo "$nodes" | head -n 1);
 
     # move everything into 2 that is not our new_node
-    for wid in $(bspc query -N '@/1' -n .descendant_of.window.$node_filter | grep -v $root); do
-      bspc node "$wid" -n '@/2';
+    for wid in $(bspc query --nodes '@/1' --node .descendant_of.window.$node_filter | grep -v $root); do
+      bspc node "$wid" --to-node '@/2';
     done
 
-    bspc node "$root" -n '@/1';
+    bspc node "$root" --to-node '@/1';
   fi
 
   rotate '@/' horizontal 90;
   rotate '@/2' vertical 90;
 
-  local stack_node=$(bspc query -N '@/2' -n);
-  for parent in $(bspc query -N '@/2' -n .descendant_of.!window.$node_filter | grep -v $stack_node); do
+  local stack_node=$(bspc query --nodes '@/2' --node);
+  for parent in $(bspc query --nodes '@/2' --node .descendant_of.!window.$node_filter | grep -v $stack_node); do
     rotate $parent vertical 90;
   done
 
   auto_balance '@/2';
 
-  local mon_height=$(jget height "$(bspc query -T -m)");
+  local mon_height=$(jget height "$(bspc query --tree --monitor)");
 
   local want=$(echo "$master_size * $mon_height" | bc | sed 's/\..*//');
-  local have=$(jget height "$(bspc query -T -n '@/1')");
+  local have=$(jget height "$(bspc query --tree --node '@/1')");
 
   bspc node '@/1' --resize bottom 0 $((want - have));
 }
