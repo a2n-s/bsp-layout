@@ -20,7 +20,10 @@ kill_layout() {
 
 remove_listener() {
   desktop=$1;
-  [[ -z "$desktop" ]] && desktop=$(get_focused_desktop);
+  if [ "$desktop" == "--current" ] || [ "$desktop" == "-c" ] || [ -z "$desktop" ];
+  then
+    desktop=$(get_focused_desktop);
+  fi
 
   kill_layout "$desktop";
 
@@ -46,7 +49,11 @@ run_layout() {
 
 get_layout() {
   # Set desktop to currently focused desktop if option is not specified
-  local desktop="${1:-`get_focused_desktop`}";
+  desktop=$1;
+  if [ "$desktop" == "--current" ] || [ "$desktop" == "-c" ] || [ -z "$desktop" ];
+  then
+    desktop=$(get_focused_desktop);
+  fi
 
   local layout=$(get_desktop_options "$desktop" | valueof layout);
   echo "${layout:-"-"}";
