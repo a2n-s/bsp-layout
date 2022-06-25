@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
 
+# this function is just a proxy for any of the `bsp-layout` subcommands
+#
+# the idea is that removing "demo" and the quotation marks around the name
+# of the command should execute the subcommand of `bsp-layout` once integrated
+# in the code base, e.g.
+#   - `demo "man bsp-layout"` here should simply be `man bsp-layout` in the code
+#   - `demo "once_layout" "layout=$1:desktop=$2:args=$master_size"` here should
+#     be `once_layout "layout=$1:desktop=$2:args=$master_size"` in the code
+#
 demo() {
   name=$1
   args=$2
