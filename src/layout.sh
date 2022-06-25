@@ -234,8 +234,8 @@ case "$action" in
   get)               get_layout "$@" ;;
   remove)            remove_listener "$1" ;;
   layouts)           list_layouts ;;
-  -h|--help|help)    man bsp-layout ;;
+  -h|--help|help)    man bspl ;;
   -v|version)        echo "$VERSION" ;;
-  *)                 echo -e "Unknown subcommand. Run bsp-layout help" && exit 1 ;;
+  *)                 echo -e "Unknown subcommand. Run bspl help" && exit 1 ;;
 esac
 

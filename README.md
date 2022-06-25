@@ -134,67 +134,67 @@ _______________
 
 * Help menu
 ```bash
-bsp-layout help
+bspl help
 ```
 
 * Set a layout in desktop named 6
 Not specifying the layout will apply the layout on the focused desktop
 ```bash
-bsp-layout set tall 6
+bspl set tall 6
 ```
 
 * Set tall layout to desktop with a 40% split
 Set the master size for layout
 ```bash
 // Currently focused workspace
-bsp-layout set tall -- --master-size 0.4
+bspl set tall -- --master-size 0.4
 
 // Workspace 6
-bsp-layout set tall 6 -- --master-size 0.4
+bspl set tall 6 -- --master-size 0.4
 ```
 
 * Remove layout applied to desktop named 6
 This will remove any layout applied
 ```bash
-bsp-layout remove 6
+bspl remove 6
 ```
 
 * Apply a layout on your focused workspace once
 This will apply the layout on the current set of nodes on that workspace but newer nodes won't conform to the layout.
 ```bash
-bsp-layout once tall
+bspl once tall
 ```
 
 * Go back through layouts
 Go back through all (or a custom list of) layouts.
 ```bash
 # Switch to previous layout
-bsp-layout previous
+bspl previous
 
 # Or to go back through a custom list of layouts
-bsp-layout previous --layouts tall,monocle,wide
+bspl previous --layouts tall,monocle,wide
 
 # For a specific desktop
-bsp-layout previous --layouts tall,monocle,wide --desktop 4
+bspl previous --layouts tall,monocle,wide --desktop 4
 ```
 
 * Go through layouts
 Go through all (or a custom list of) layouts.
 ```bash
 # Switch to next layout
-bsp-layout next
+bspl next
 
 # Or to go through a custom list of layouts
-bsp-layout next --layouts tall,monocle,wide
+bspl next --layouts tall,monocle,wide
 
 # For a specific desktop
-bsp-layout next --layouts tall,monocle,wide --desktop 4
+bspl next --layouts tall,monocle,wide --desktop 4
 ```
 
 * Toggle layout
 ```bash
 # Toggle between monocle and tall layouts
-bsp-layout next tall,monocle
+bspl next tall,monocle
 ```
 
 

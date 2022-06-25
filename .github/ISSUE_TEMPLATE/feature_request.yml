@@ -17,7 +17,7 @@ body:
     placeholder: |
       I'd like bsp-layout to send notifications when switching from layout to layout.
 
-      This would give some visual and maybe even auditive feedback when running bsp-layout on key bindings.
+      This would give some visual and maybe even auditive feedback when running `bspl` on key bindings.
   validations:
     required: true
 - type: textarea
@@ -27,7 +27,7 @@ body:
       How would your requested feature be used? Can you demonstrate it with a screencast or a visual document?
     placeholder: |
       1. Install bsp-layout
-      2. Run `bsp-layout set even {desktop}`
+      2. Run `bspl set even {desktop}`
       3. Get a notification saying "Desktop {desktop} now set to the even layout"
   validations:
     required: true

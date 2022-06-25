@@ -40,7 +40,7 @@ body:
       I tried setting X to Y, then I tried Z. Here's what else I tried...
 
       ```bash
-      bsp-layout get
+      bspl get
       ```
 - type: textarea
   attributes:
@@ -52,7 +52,7 @@ body:
     placeholder: |
       1. Open a terminal
       2. Open a few windows on a different desktop
-      3. Run `bsp-layout once even`
+      3. Run `bspl once even`
       4. My computer explodes
   validations:
     required: true
@@ -64,7 +64,7 @@ body:
 
       Do you use bsp-layout or bsp-layout-git from the AUR? Did you install it with nixpkgs, make install or the install.sh script?
     placeholder: |
-      I installed the `bsp-layout` command with `sudo make PREFIX=/usr/ install`.
+      I installed the `bsp-layout` package with `sudo make PREFIX=/usr/ install`.
 
       ```bash
       $ uname -osrm
@@ -72,7 +72,7 @@ body:
       ```
 
       ```bash
-      $ bsp-layout version
+      $ bspl version
       0.0.10-1
       ```
   validations:
