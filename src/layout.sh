@@ -163,16 +163,12 @@ start_listener() {
           echo 2 > "$desk_file"
         fi
 
-        if [[ "$event" == "desktop_focus" ]]; then
-          if [ "$(< "$desk_file")" == "1" ]; then
-            echo 0 > "$desk_file"
-            __recalculate_layout;
-          fi
-        else
-          if [[ "$(< "$desk_file")" == "0" || "$event" != "desktop_focus" ]]; then
-            echo 1 > "$desk_file"
-            __recalculate_layout;
-          fi
+        if [[ "$event" == "desktop_focus" && "$(< "$desk_file")" == "1" ]]; then
+          echo 0 > "$desk_file"
+          __recalculate_layout;
+        elif [[ "$event" != "desktop_focus" || "$(< "$desk_file")" == "0" ]]; then
+          echo 1 > "$desk_file"
+          __recalculate_layout;
         fi
       fi;
     fi;
